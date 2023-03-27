@@ -1,0 +1,147 @@
+ues hrm;
+
+create table users(
+	id int primary key auto_increment,
+	userName varchar(50) not null,
+	password varchar(50) not null
+);
+
+insert into users(userName,password) value('root','root');
+
+create table depts(
+	id int primary key auto_increment,
+	name varchar(200) not null,
+	notes varchar(500)
+);
+
+
+create table emps(
+	id int primary key auto_increment,
+	name varchar(20) not null,
+	sex varchar(5),
+	phone varchar(30),
+	email varchar(100),
+	address varchar(300),
+	idCard varchar(30),
+	weChat varchar(30),
+	notes varchar(300),
+	dept int
+);
+
+
+
+alter table emps add constraint fk_emp_dept foreign key(dept) references depts(id);
+
+create table groups(
+	id int primary key auto_increment,
+	name varchar(200) not null,
+	notes varchar(500)
+);
+create table groups_emps(
+	groups int,
+	emps int,
+	primary key(groups,emps)
+	
+	
+);
+
+alter table groups_emps add constraint fk_ge_groups foreign key(groups) references groups(id);
+alter table groups_emps add constraint fk_ge_emps foreign key(emps) references emps(id);
+
+	birthday varchar(50),
+	phone varchar(50),
+	c_credits varchar(50),
+	amount varchar(50),
+	open_time varchar(50),
+	c_ban varchar(5),
+	c_notes varchar(100)
+	
+create table client(
+	id int primary key auto_increment,
+	cli_name varchar(50),
+	cli_campany_name varchar(50),
+	cli_debt varchar(50),
+	cli_phone varchar(50),
+	cli_address varchar(100),
+	cli_linkman varchar(50),
+	line_credits varchar(50),
+	deal_type varcahr(50),
+	cli_tax_bank varchar(50),
+	cli_tax_name(50),
+	cli_tax_bank_bo varchar(50),
+	cli_tax_no varchar(50),
+	cli_ban varchar(5),
+	cli_credits varchar(50),
+	cli_discount varchar(50)
+);
+
+create table user(
+	id int primary key auto_increment,
+	user_name varchar(50),
+	password varchar(50),
+	authority varchar(50),
+	shop varchar(50)
+);
+
+create table tans_data(
+	id int primary key auto_increment,
+	serial_no varchar(50),
+	product_id varchar(50),
+	prduct_count varchar(50),
+	price varchar(50),
+	t_a_credits varchar(50),
+	pay_method varchar(50),
+	refund varcahr(5),
+	customer_id int(5),
+);
+
+create table shop(
+	id int primary key auto_increment,
+	shop_name varchar(50),
+	shop_address varchar(50),
+	contact_way varchar(50),
+	emp_count varchar(50),
+	ban varchar(50),
+);
+
+create table stock(
+	id int primary key auto_increment,
+	bills_no varcahr(50),
+	supplier_id ine(5),
+	linkman varchar(50)
+	phone varchar(50),
+	A&C_type varchar(50),
+	into_i_shop varchar(50),
+	js_person varchar(50),
+	pay_account varchar(50),
+	pay_type varchar(50),
+	into_i_time varchar(50),
+	order_time varchar(50),
+	check varchar(5),
+	payee_time varchar(50),
+	pay_amount varchar(50),
+	product_id int(5),
+	s_count varchar(50),
+	s_price varchar(50),
+);
+
+create table out_product_list(
+	id int primary key auto_increment,
+	bills_no varcahr(50),
+	supplier_id ine(5),
+	customer varchar(50)
+	phone varchar(50),
+	A&C_type varchar(50),
+	out_i_shop varchar(50),
+	js_person varchar(50),
+	pay_account varchar(50),
+	pay_type varchar(50),
+	out_i_time varchar(50),
+	gathering_time varchar(50),
+	check varchar(5),
+	pay_amount varchar(50),
+	product_id int(5),
+	o_count varchar(50),
+	o_price varchar(50),
+);
+

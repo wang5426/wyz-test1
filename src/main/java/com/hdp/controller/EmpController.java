@@ -1,0 +1,79 @@
+package com.hdp.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.hdp.pojo.Emp;
+import com.hdp.service.EmpService;
+import com.hdp.utils.ResponeseCode;
+import com.hdp.utils.ResponseEntity;
+
+@RestController
+@RequestMapping("emp")
+public class EmpController {
+	
+	@Resource
+	private EmpService service;
+	
+	@RequestMapping("list")
+	public Map<String,Object> list(Integer page){
+		int size = 10;
+		int currentPage = page;
+		int offset = (page-1)*size;
+		int count = service.queryCount();
+		int totalPage = (count+size-1)/size;
+		List<Emp> list =service.queryPage(offset, size);
+		Map<String,Object>map = new HashMap<>();
+		map.put("list", list);
+		map.put("total", count);
+		map.put("currentPage", currentPage);
+		map.put("totalPage", totalPage);
+		
+		return map;
+	}
+	
+	
+	
+	@RequestMapping("insert")
+	public ResponseEntity edit(Emp obj) {
+		service.insert(obj);  //跳转serviceImpl,提供取到的值
+		return ResponseEntity.success();
+	}
+	@RequestMapping("add")
+	public ResponseEntity add(Emp obj) {
+		int i = service.insert(obj);
+		return ResponseEntity.success();
+	}
+	
+	@RequestMapping("delete")
+	public ResponseEntity delete(int id) {
+		int i = service.delete(id);
+		return ResponseEntity.success();
+	}
+	
+	@RequestMapping("edit")
+	public ResponseEntity insert(Integer id) {
+		Emp obj = service.queryObject(id);
+		return ResponseEntity.success(ResponeseCode.STATUS_OK,obj);
+	}
+	
+	
+	@RequestMapping("exit")
+	public ResponseEntity exit(HttpSession session) {
+		session.invalidate();
+		return ResponseEntity.success();
+	}
+	
+	@RequestMapping("update")
+	public ResponseEntity update(Emp obj) {
+		int i = service.update(obj);
+		return ResponseEntity.success();
+	}
+}
